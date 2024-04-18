@@ -2,7 +2,9 @@
 """
 Module of 101-safely_get_value
 """
-from typing import Any, Mapping, Optional, Union, TypeVar
+from typing import Any, Mapping, Optional, TypeVar, Union
+
+
 T = TypeVar('T')
 
 
