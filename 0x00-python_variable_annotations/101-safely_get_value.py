@@ -5,7 +5,7 @@ Module of 101-safely_get_value
 from typing import Any, Mapping, TypeVar, Union
 
 
-T= TypeVar('T')
+T = TypeVar('T')
 
 
 def safely_get_value(dct: Mapping,
