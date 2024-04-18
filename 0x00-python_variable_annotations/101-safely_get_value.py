@@ -2,13 +2,15 @@
 """
 Module of 101-safely_get_value
 """
-from typing import Any, Mapping, Optional, TypeVar, Union
+from typing import Any, Mapping, TypeVar, Union
+
+
+T= TypeVar('T')
 
 
 def safely_get_value(dct: Mapping,
                      key: Any,
-                     default: Union[Optional[T]] = None) -> Union[Any,
-                                                                  Optional[T]]:
+                     default: Union[T, None] = None) -> Union[Any, T]:
     """ Type annotations """
     if key in dct:
         return dct[key]
