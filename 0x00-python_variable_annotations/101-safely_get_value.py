@@ -3,8 +3,6 @@
 Module of 101-safely_get_value
 """
 from typing import Any, Mapping, Optional, Union, TypeVar
-
-
 T = TypeVar('T')
 
 
