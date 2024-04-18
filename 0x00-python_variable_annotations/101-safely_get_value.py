@@ -5,9 +5,6 @@ Module of 101-safely_get_value
 from typing import Any, Mapping, Optional, TypeVar, Union
 
 
-T = TypeVar('T')
-
-
 def safely_get_value(dct: Mapping,
                      key: Any,
                      default: Union[Optional[T]] = None) -> Union[Any,
