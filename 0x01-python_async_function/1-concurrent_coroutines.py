@@ -3,12 +3,13 @@
 Module of 1-concurrent_coroutines
 """
 
+
+wait_random = __import__('0-basic_async_syntax').wait_random
 import asyncio
 from typing import List
-wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> List:
+async def wait_n(n: int, max_delay: int) -> Listi[float]:
     """ Multiple coroutines at the same time """
     delays = []
     tasks = [asyncio.create_task(wait_random(max_delay)) for i in range(n)]
