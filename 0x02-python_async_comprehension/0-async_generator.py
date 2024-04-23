@@ -4,11 +4,11 @@ Module: 0-async_generator
 """
 import asyncio
 import random
-from typing import Iterator
+from typing import List
 
 
-async def async_generator() -> Iterator[float]:
+async def async_generator() -> List[float]:
     """ async comprehension """
     for i in range(10):
         await asyncio.sleep(1)
-        yield random.uniform(0, 11)
+        yield random.uniform(0, 10)
