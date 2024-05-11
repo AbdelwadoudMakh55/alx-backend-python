@@ -17,12 +17,13 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @parameterized.expand([
         ("google"),
-        ("abc"),
+        ("abc")
     ])
-    @patch('client.get_json', return_value={"name": None})
+    @patch('client.get_json')
     def test_org(self, org: str, mock_get_json: Mock) -> None:
         """ Function that test: GithubOrgClient.org function"""
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
+        mock_get_json.return_value = {"name": None}
         self.assertEqual(org_client.org, {"name": None})
         mock_get_json.assert_called_once_with(url)
