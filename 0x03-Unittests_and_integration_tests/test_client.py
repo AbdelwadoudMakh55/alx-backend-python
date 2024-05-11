@@ -8,6 +8,7 @@ from client import GithubOrgClient
 from parameterized import parameterized
 import unittest
 from unittest.mock import patch
+from typing import Dict
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -20,7 +21,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {"name": None})
     ])
     @patch('client.get_json')
-    def test_org(self, org, response, mock_get_json):
+    def test_org(self, org: str, response: Dict, mock_get_json) -> None:
         """ Function that test: GithubOrgClient.org function"""
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
