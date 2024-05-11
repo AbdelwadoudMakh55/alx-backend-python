@@ -2,10 +2,12 @@
 """
 Testing functions of the client module
 """
+
+
 from client import GithubOrgClient
 from parameterized import parameterized
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -17,11 +19,10 @@ class TestGithubOrgClient(unittest.TestCase):
         ("google"),
         ("abc")
     ])
-    @patch('client.get_json')
-    def test_org(self, org, mock_get_json):
+    @patch('client.get_json', return_value={"name": None})
+    def test_org(self, org: str, mock_get_json: Mock) -> None:
         """ Function that test: GithubOrgClient.org function"""
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
-        mock_get_json.return_value = {"name": None}
         self.assertEqual(org_client.org, {"name": None})
         mock_get_json.assert_called_once_with(url)
