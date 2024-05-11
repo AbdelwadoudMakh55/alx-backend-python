@@ -21,7 +21,8 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {"name": None})
     ])
     @patch('client.get_json')
-    def test_org(self, org: str, response: Dict, mock_get_json) -> None:
+    def test_org(self, org: str, response: Dict,
+                 mock_get_json: unittest.mock.MagicMock) -> None:
         """ Function that test: GithubOrgClient.org function"""
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
