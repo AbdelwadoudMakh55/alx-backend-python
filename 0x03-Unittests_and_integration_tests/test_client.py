@@ -24,7 +24,7 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_org(self, org: str, response: Dict,
                  mock_get_json: unittest.mock.MagicMock) -> None:
         """ Function that test: GithubOrgClient.org function"""
-        org_client = GithubOrgClient(org)
+        org_client = GithubOrgClient(org) 
         url = GithubOrgClient.ORG_URL.format(org=org)
         mock_get_json.return_value = response
         self.assertEqual(org_client.org, response)
