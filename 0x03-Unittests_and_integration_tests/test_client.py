@@ -31,3 +31,20 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_org.return_value = {"repos_url": {"payload": True}}
             client = GithubOrgClient("google")
             self.assertEqual(client._public_repos_url, {"payload": True})
+
+    """@patch('client.get_json')
+    def test_public_repos(self, mock_get_json):
+        Function that tests: GithubOrgClient.public_repos function
+        mock_get_json.return_value = {"payload": True}
+        with patch.object(GithubOrgClient,
+                          '_public_repos_url',
+                          new_callable=PropertyMock) as mock_public_repos:
+            mock_public_repos.return_value = 55
+    """
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo, license_key, res):
+        """ Function that tests: GithubOrgClient.has_license """
+        self.assertEqual(GithubOrgClient.has_license(repo, license_key), res)
