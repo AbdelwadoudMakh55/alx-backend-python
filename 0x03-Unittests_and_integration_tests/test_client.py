@@ -4,6 +4,7 @@ Testing functions of the client module
 """
 
 
+from client import GithubOrgClient
 from parameterized import parameterized
 import unittest
 from unittest.mock import patch
@@ -21,7 +22,6 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json')
     def test_org(self, org, response, mock_get_json):
         """ Function that test: GithubOrgClient.org function"""
-        from client import GithubOrgClient
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
         mock_get_json.return_value = response
