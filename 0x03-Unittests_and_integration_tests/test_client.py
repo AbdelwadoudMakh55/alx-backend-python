@@ -1,5 +1,7 @@
 #!/usr/bin/env python3"
 """ Testing functions of the client module """
+
+
 from client import GithubOrgClient
 from parameterized import parameterized
 import unittest
@@ -35,11 +37,11 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
         """ Function that tests: GithubOrgClient.public_repos function """
-        client = GithubOrgClient("google")
         mock_get_json.return_value = [{"name": "Ahmed"}, {"name": "Abd"}]
         with patch.object(GithubOrgClient,
                           '_public_repos_url',
                           new_callable=PropertyMock) as mock_public_repos:
+            client = GithubOrgClient("google")
             mock_public_repos.return_value = "http://example.com"
             self.assertEqual(client.public_repos(), ["Ahmed", "Abd"])
             mock_get_json.assert_called_once()
