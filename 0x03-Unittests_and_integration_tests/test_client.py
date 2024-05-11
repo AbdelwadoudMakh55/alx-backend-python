@@ -7,7 +7,6 @@ Testing functions of the client module
 from parameterized import parameterized
 import unittest
 from unittest.mock import patch
-from typing import Dict
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -20,8 +19,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {"name": None})
     ])
     @patch('client.get_json')
-    def test_org(self, org: str, response: Dict,
-                 mock_get_json: unittest.mock.MagicMock) -> None:
+    def test_org(self, org, response, mock_get_json):
         """ Function that test: GithubOrgClient.org function"""
         from client import GithubOrgClient
         org_client = GithubOrgClient(org)
