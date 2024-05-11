@@ -4,10 +4,10 @@ Module for parameterized testing
 """
 
 
-import unittest
-from unittest.mock import Mock, patch
-from parameterized import parameterized
 from client import GithubOrgClient
+from parameterized import parameterized
+import unittest
+from unittest.mock import patch
 
 
 class TestGithubOrgClient(unittest.TestCase):
