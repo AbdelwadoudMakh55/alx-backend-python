@@ -23,6 +23,6 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_org(self, org, mock_get_json):
         """ Function that test: GithubOrgClient.org function"""
         org_client = GithubOrgClient(org)
-        url = GithubOrgClient.ORG_URL.format(org=org)
+        url = GithubOrgClient.ORG_URL.format(org)
         org_client.org()
         mock_get_json.assert_called_once_with(url)
