@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Module for parameterized testing
-"""
+#!/usr/bin/env python3"
 
 
 from client import GithubOrgClient
