@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """ Testing functions of the client module """
 
 
@@ -10,7 +9,7 @@ from unittest.mock import Mock, patch, PropertyMock
 
 class TestGithubOrgClient(unittest.TestCase):
     """
-    Class for testing "client.GithubOrgClient.org"
+    Class for testing : client.GithubOrgClient.org
     """
 
     @parameterized.expand([
