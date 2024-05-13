@@ -19,7 +19,9 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch('client.get_json')
     def test_org(self, org, mock_get_json):
-        """ Function that test: GithubOrgClient.org function"""
+        """
+        Test GithubOrgClient.org function
+        """
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
         mock_get_json.return_value = {"name": None}
@@ -27,7 +29,7 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get_json.assert_called_once_with(url)
 
     def test_public_repos_url(self):
-        """ Function that tests: GithubOrgClient._public_repos_url function"""
+        """ Function that tests: GithubOrgClient._public_repos_url function """
         with patch.object(GithubOrgClient, 'org', new_callable=PropertyMock)\
              as mock_org:
             mock_org.return_value = {"repos_url": {"payload": True}}
