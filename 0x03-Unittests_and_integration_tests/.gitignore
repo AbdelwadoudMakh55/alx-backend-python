@@ -3,3 +3,4 @@ utils.py
 client.py
 fixtures.py
 myenv/*
+test_client_.py
