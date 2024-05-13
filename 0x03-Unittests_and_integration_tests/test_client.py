@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-
-"""
-Testing functions of the client module.
+"""Testing functions of the client module
+using patchers as decorator and as context manager
+- This file has unit-tests and integration tests.
 """
 
 
@@ -13,7 +13,8 @@ from unittest.mock import patch, PropertyMock
 
 class TestGithubOrgClient(unittest.TestCase):
     """
-    Class for testing : client.GithubOrgClient.org.
+    Class for testing: client.GithubOrgClient.org
+    - This class has unit-tests.
     """
     @parameterized.expand([
         ("google",),
