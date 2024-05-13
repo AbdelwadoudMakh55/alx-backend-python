@@ -25,9 +25,8 @@ class TestGithubOrgClient(unittest.TestCase):
         org_client = GithubOrgClient(org_name)
         url = GithubOrgClient.ORG_URL.format(org=org_name)
         mock_get_json.return_value = {"name": None}
-        response = org_client.org
-        self.assertEqual(response, {"name": None})
-        mock_get_json.assert_called_once_with(url)
+        self.assertEqual(org_client.org, {"name": None})
+        mock_get_json.assert_called_once_with()
 
     def test_public_repos_url(self) -> None:
         """Function that tests: GithubOrgClient._public_repos_url function."""
