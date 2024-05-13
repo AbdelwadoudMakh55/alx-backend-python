@@ -73,23 +73,32 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     """
     Integration test of GithubOrgClient.public_repos
     """
-    mock_get = patch('requests.get')
+    get_patcher = patch('requests.get')
 
     @classmethod
     def setUpClass(cls):
-        cls.mock_get.side_effect = side_effect
-        get_patcher = cls.mock_get.start()
+        cls.get_patcher.side_effect = side_effect
+        cls.mock_get = cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
-        cls.mock_get.stop()
+        cls.get_patcher.stop()
 
     @staticmethod
-    def side_effect():
-        response = [
-            {"org_payload": None},
-            {"repos_payload": None},
-            [1, 2],
-            [5, 6]
-        ]
-        return response
+    def side_effect(url):
+        class Mock_json_method:
+            def __init__(self, data):
+                self.data = data
+
+            def json(self):
+                return self.data
+        org = "https://api.github.com/orgs/google"
+        org_repos = "https://api.github.com/orgs/google/repos"
+        if url == org:
+            response = Mock_json_method(cls.org_payload)
+            return response
+        elif url == org_repos:
+            response = Mock_json_method(cls.repos_payload)
+            return response
+        else:
+            return None
