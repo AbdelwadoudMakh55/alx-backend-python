@@ -12,20 +12,19 @@ class TestGithubOrgClient(unittest.TestCase):
     """
     Class for testing : client.GithubOrgClient.org
     """
-
+    
     @parameterized.expand([
         ("google"),
         ("abc")
     ])
     @patch('client.get_json')
     def test_org(self, org, mock_get_json):
-        """
-        Test GithubOrgClient.org function
-        """
+        """ Test GithubOrgClient.org function """
         org_client = GithubOrgClient(org)
         url = GithubOrgClient.ORG_URL.format(org=org)
         mock_get_json.return_value = {"name": None}
-        self.assertEqual(org_client.org, {"name": None})
+        response = org_client.org
+        self.assertEqual(response, {"name": None})
         mock_get_json.assert_called_once_with(url)
 
     def test_public_repos_url(self):
@@ -44,7 +43,7 @@ class TestGithubOrgClient(unittest.TestCase):
                           '_public_repos_url',
                           new_callable=PropertyMock) as mock_public_repos:
             client = GithubOrgClient("google")
-            mock_public_repos.return_value = ("http://example.com")
+            mock_public_repos.return_value = "http://example.com"
             self.assertEqual(client.public_repos(), ["Ahmed", "Abd"])
             mock_get_json.assert_called_once()
             mock_public_repos.assert_called_once()
