@@ -13,6 +13,7 @@ class TestGithubOrgClient(unittest.TestCase):
     """
     Class for testing : client.GithubOrgClient.org
     """
+
     @parameterized.expand([
         ("google",),
         ("abc",)
@@ -30,8 +31,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
     def test_public_repos_url(self):
         """ Function that tests: GithubOrgClient._public_repos_url function """
-        with patch.object(GithubOrgClient, 'org', new_callable=PropertyMock)\
-             as mock_org:
+        with patch.object(GithubOrgClient, 'org',
+                          new_callable=PropertyMock) as mock_org:
             mock_org.return_value = {"repos_url": {"payload": True}}
             client = GithubOrgClient("google")
             self.assertEqual(client._public_repos_url, {"payload": True})
