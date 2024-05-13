@@ -19,18 +19,17 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc",)
     ])
     @patch('client.get_json')
-    def test_org(self, org, mock_get_json):
-        """ Test GithubOrgClient.org function.
-        """
-        org_client = GithubOrgClient(org)
-        url = GithubOrgClient.ORG_URL.format(org=org)
+    def test_org(self, org_name, mock_get_json):
+        """Test GithubOrgClient.org function."""
+        org_client = GithubOrgClient(org_name)
+        url = GithubOrgClient.ORG_URL.format(org=org_name)
         mock_get_json.return_value = {"name": None}
         response = org_client.org
         self.assertEqual(response, {"name": None})
         mock_get_json.assert_called_once_with(url)
 
     def test_public_repos_url(self):
-        """ Function that tests: GithubOrgClient._public_repos_url function """
+        """Function that tests: GithubOrgClient._public_repos_url function."""
         with patch.object(GithubOrgClient, 'org',
                           new_callable=PropertyMock) as mock_org:
             mock_org.return_value = {"repos_url": {"payload": True}}
@@ -39,7 +38,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
-        """ Function that tests: GithubOrgClient.public_repos function """
+        """Function that tests: GithubOrgClient.public_repos function."""
         mock_get_json.return_value = [{"name": "Ahmed"}, {"name": "Abd"}]
         with patch.object(GithubOrgClient,
                           '_public_repos_url',
@@ -52,8 +51,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
-        ({"license": {"key": "other_license"}}, "my_license", False),
+        ({"license": {"key": "other_license"}}, "my_license", False)
     ])
     def test_has_license(self, repo, license_key, res):
-        """ Function that tests: GithubOrgClient.has_license """
+        """Function that tests: GithubOrgClient.has_license."""
         self.assertEqual(GithubOrgClient.has_license(repo, license_key), res)
