@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
-"""Testing functions of the client module
+"""
+Testing functions of the client module.
 """
 
 
 from client import GithubOrgClient
 from parameterized import parameterized
 import unittest
-from unittest.mock import Mock, patch, PropertyMock
-from typing import Mapping
+from unittest.mock import patch, PropertyMock
 
 
 class TestGithubOrgClient(unittest.TestCase):
     """
-    Class for testing : client.GithubOrgClient.org
+    Class for testing : client.GithubOrgClient.org.
     """
-
     @parameterized.expand([
         ("google",),
         ("abc",)
     ])
     @patch('client.get_json')
-    def test_org(self, org_name: str, mock_get_json: Mock) -> None:
+    def test_org(self, org_name, mock_get_json):
         """Test GithubOrgClient.org function."""
         org_client = GithubOrgClient(org_name)
         url = f'https://api.github.com/orgs/{org_name}'
@@ -28,7 +27,7 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(org_client.org, {"name": "abd"})
         mock_get_json.assert_called_once_with(url)
 
-    def test_public_repos_url(self) -> None:
+    def test_public_repos_url(self):
         """Function that tests: GithubOrgClient._public_repos_url function."""
         with patch.object(GithubOrgClient, 'org',
                           new_callable=PropertyMock) as mock_org:
@@ -37,7 +36,7 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(client._public_repos_url, {"payload": True})
 
     @patch('client.get_json')
-    def test_public_repos(self, mock_get_json: Mock) -> None:
+    def test_public_repos(self, mock_get_json):
         """Function that tests: GithubOrgClient.public_repos function."""
         mock_get_json.return_value = [{"name": "Ahmed"}, {"name": "Abd"}]
         with patch.object(GithubOrgClient,
@@ -53,8 +52,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False)
     ])
-    def test_has_license(self, repo: Mapping, license_key: str,
-                         res: bool) -> None:
+    def test_has_license(self, repo, license_key, res):
         """Function that tests: GithubOrgClient.has_license."""
         client = GithubOrgClient("google")
         self.assertEqual(client.has_license(repo, license_key), res)
