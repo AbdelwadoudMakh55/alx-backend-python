@@ -7,6 +7,7 @@ from client import GithubOrgClient
 from parameterized import parameterized
 import unittest
 from unittest.mock import Mock, patch, PropertyMock
+from typing import Mapping
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -53,6 +54,6 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False)
     ])
-    def test_has_license(self, repo: Dict[Dict], license_key: str, res: bool):
+    def test_has_license(self, repo: Mapping, license_key: str, res: bool):
         """Function that tests: GithubOrgClient.has_license."""
         self.assertEqual(GithubOrgClient.has_license(repo, license_key), res)
