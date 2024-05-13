@@ -77,15 +77,18 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """ setUpClass """
         cls.get_patcher.side_effect = side_effect
         cls.mock_get = cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
+        """ teardDownClass """
         cls.get_patcher.stop()
 
     @staticmethod
     def side_effect(url):
+        """ side effect for get_patcher """
         class Mock_json_method:
             def __init__(self, data):
                 self.data = data
@@ -105,5 +108,12 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @staticmethod
     def test_public_repos(cls):
+        """ test GithubOrgClient.public_repos """
         client = GithubOrgClient("google")
         self.assertEqual(client.public_repos(), cls.expected_repos)
+
+    @staticmethod
+    def test_public_repos_with_license(cls):
+        """ test GithubOrgClient.public_repos with arg "apache2" """
+        client = GithubOrgClient("google")
+        self.assertEqual(client.public_repos("apache-2.0"), cls.apache2_repos)
