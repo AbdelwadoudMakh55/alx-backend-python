@@ -7,8 +7,9 @@ using patchers as decorator and as context manager
 
 import unittest
 from client import GithubOrgClient
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from unittest.mock import patch, PropertyMock
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -56,6 +57,39 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(self, repo, license_key, res):
         """Function that tests: GithubOrgClient.has_license."""
-        client = GithubOrgClient("google")
-        self.assertEqual(client.has_license(repo, license_key), res)
         self.assertEqual(GithubOrgClient.has_license(repo, license_key), res)
+
+
+@parameterized_class(
+    (
+        'org_payload',
+        'repos_payload',
+        'expected_repos',
+        'apache2_repos'
+    ),
+    TEST_PAYLOAD
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """
+    Integration test of GithubOrgClient.public_repos
+    """
+    mock_get = patch('requests.get')
+
+    @classmethod
+    def setUpClass(cls):
+        cls.mock_get.side_effect = side_effect
+        get_patcher = cls.mock_get.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.mock_get.stop()
+
+    @staticmethod
+    def side_effect():
+        response = [
+            {"org_payload": None},
+            {"repos_payload": None},
+            [1, 2],
+            [5, 6]
+        ]
+        return response
