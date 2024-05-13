@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+
 """
 Testing functions of the client module.
 """
 
 
+import unittest
 from client import GithubOrgClient
 from parameterized import parameterized
-import unittest
 from unittest.mock import patch, PropertyMock
 
 
