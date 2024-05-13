@@ -23,10 +23,10 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_org(self, org_name: str, mock_get_json: Mock) -> None:
         """Test GithubOrgClient.org function."""
         org_client = GithubOrgClient(org_name)
-        url = GithubOrgClient.ORG_URL.format(org=org_name)
-        mock_get_json.return_value = {"name": None}
-        self.assertEqual(org_client.org, {"name": None})
-        mock_get_json.assert_called_once()
+        url = f'https://api.github.com/orgs/{org_name}'
+        mock_get_json.return_value = {"name": "abd"}
+        self.assertEqual(org_client.org, {"name": "abd"})
+        mock_get_json.assert_called_once_with(url)
 
     def test_public_repos_url(self) -> None:
         """Function that tests: GithubOrgClient._public_repos_url function."""
