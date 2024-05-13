@@ -73,6 +73,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     """
     Integration test of GithubOrgClient.public_repos
     """
+
     get_patcher = patch('requests.get')
 
     @classmethod
@@ -90,11 +91,15 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def side_effect(url):
         """ side effect for get_patcher """
         class Mock_json_method:
+            """ Mock .json() method """
             def __init__(self, data):
+                """ initialize object """
                 self.data = data
 
             def json(self):
+                """ return data """
                 return self.data
+
         org = "https://api.github.com/orgs/google"
         org_repos = "https://api.github.com/orgs/google/repos"
         if url == org:
