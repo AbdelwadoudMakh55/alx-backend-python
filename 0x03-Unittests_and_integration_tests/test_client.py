@@ -106,14 +106,12 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         else:
             return None
 
-    @staticmethod
-    def test_public_repos(cls):
+    def test_public_repos(self):
         """ test GithubOrgClient.public_repos """
         client = GithubOrgClient("google")
         self.assertEqual(client.public_repos(), cls.expected_repos)
 
-    @staticmethod
-    def test_public_repos_with_license(cls):
+    def test_public_repos_with_license(self):
         """ test GithubOrgClient.public_repos with arg "apache2" """
         client = GithubOrgClient("google")
         self.assertEqual(client.public_repos("apache-2.0"), cls.apache2_repos)
